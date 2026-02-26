@@ -1,0 +1,50 @@
+-- 1. Create the customers table
+--CREATE TABLE customers (
+--    id SERIAL PRIMARY KEY,
+--    first_name VARCHAR(255),
+--    last_name VARCHAR(255),
+--    email VARCHAR(255),
+--    address JSON
+--);
+--
+-- 2. Create the orders table
+--CREATE TABLE orders (
+--    id SERIAL PRIMARY KEY,
+--    customer_id INTEGER REFERENCES customers(id),
+--    status VARCHAR(50)
+--);
+--
+-- 3. Create the feedback table
+--CREATE TABLE feedback (
+--    id SERIAL PRIMARY KEY,
+--    order_id INTEGER UNIQUE REFERENCES orders(id),
+--    feedback_comment TEXT,
+--    rating INTEGER
+--);
+
+--mistakes
+--DROP TABLE feedback;
+--
+--CREATE TABLE feedback (
+--    id SERIAL PRIMARY KEY,
+--    order_id INTEGER REFERENCES orders(id), -- Notice: UNIQUE is removed!
+--    feedback_comment TEXT,
+--    rating INTEGER
+--);
+--ALTER TABLE feedback DROP CONSTRAINT feedback_order_id_fkey;
+--commit;
+
+-- 1. Completely destroy the existing table and its strict rules
+--DROP TABLE IF EXISTS feedback;
+--
+-- 2. Rebuild it strictly to accept the messy CSV data
+--CREATE TABLE feedback (
+--    id SERIAL PRIMARY KEY,
+--    order_id INTEGER,       -- Notice: NO 'UNIQUE' and NO 'REFERENCES'
+--    feedback_comment TEXT,
+--    rating INTEGER
+--);
+
+--CREATE PUBLICATION hevo_pub FOR ALL TABLES;
+
+--SELECT pg_create_logical_replication_slot('hevo_slot', 'pgoutput');
